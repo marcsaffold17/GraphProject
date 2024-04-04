@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    int counter = 0;
     private static final String TAG = "DemoInitialApp";
 
     @Override
@@ -27,17 +29,27 @@ public class MainActivity extends AppCompatActivity {
 
             Button btn = (Button) findViewById(R.id.button);
 
+
+
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.i("DemoInitialApp", "This button adds a vertex");
                     Toast.makeText(getApplicationContext(), "Added Vertex", Toast.LENGTH_SHORT).show();
+
+                    counter++;
+                    TextView text = (TextView) findViewById(R.id.numberVertices);
+                    text.setText ("Number Of Vertices: " + counter);
                 }
             });
 
             DrawingCanvas dc = findViewById(R.id.drawingCanvas);
 
+
+
             return insets;
         });
     }
+
 }
+
