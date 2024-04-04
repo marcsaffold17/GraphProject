@@ -1,6 +1,10 @@
 package edu.umn.d.lab11;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "DemoInitialApp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +23,19 @@ public class MainActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+
+
+            Button btn = (Button) findViewById(R.id.button);
+
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i("DemoInitialApp", "This button adds a vertex");
+                    Toast.makeText(getApplicationContext(), "Added Vertex", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
             return insets;
         });
     }
