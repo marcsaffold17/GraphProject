@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            DrawingCanvas dc = findViewById(R.id.drawingCanvas);
 
             return insets;
         });
