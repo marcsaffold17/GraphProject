@@ -15,7 +15,9 @@ public class DrawingCanvas extends View {
         super(context, attrs);
     }
 
-    protected void onDraw( Canvas canvas ) {
+    /** Temporarily commented out the DrawingCanvas functionality */
+
+   /* protected void onDraw( Canvas canvas ) {
         super.onDraw(canvas);
 
         Paint paintStyle = new Paint();
@@ -51,6 +53,6 @@ public class DrawingCanvas extends View {
                 default:
                 return true;
         }
-    }
+    } */
 
 }
