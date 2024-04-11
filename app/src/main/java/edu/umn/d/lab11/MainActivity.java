@@ -2,9 +2,11 @@ package edu.umn.d.lab11;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +59,19 @@ public class MainActivity extends AppCompatActivity implements MainView {
             /** Temporarily removing DrawingCanvas functionality */
           //  DrawingCanvas dc = findViewById(R.id.drawingCanvas);
             presenter = new Presenter(this);
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+// Create an ArrayAdapter using the string array and a default spinner layout.
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.search_methods,
+                android.R.layout.simple_spinner_item
+        );
+// Specify the layout to use when the list of choices appears.
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner.
+        spinner.setAdapter(adapter);
+
 
     }
 

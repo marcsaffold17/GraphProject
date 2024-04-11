@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Lab11</string>
+
+    <string-array name="search_methods">
+        <item>DFS</item>
+        <item>BFS</item>
+        <item>Dijkstra</item>
+    </string-array>
 </resources>
