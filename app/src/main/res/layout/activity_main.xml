@@ -25,20 +25,20 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="90dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
         android:text="Vertex Label"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createVertexText" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextText2"
-        android:layout_width="97dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="10dp"
         android:ems="10"
         android:inputType="text"
         android:scaleX="1.2"
@@ -57,18 +57,6 @@
         android:text="Create Vertex"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/edgeLabel"
-        android:layout_width="113dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:text="Between"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createEdgeText" />
 
     <TextView
         android:id="@+id/numberVertices"
@@ -94,67 +82,55 @@
         app:layout_constraintBottom_toTopOf="@+id/addedElement"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/weight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:text="Weight"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editWeight" />
-
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="150dp"
         android:layout_height="49dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/graphCreated"
-        app:layout_constraintStart_toEndOf="@+id/startingVector" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@+id/search"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
 
     <EditText
         android:id="@+id/startingVector"
-        android:layout_width="45dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="120dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="10dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
         android:text="v0"
-        app:layout_constraintStart_toEndOf="@+id/start"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
+        app:layout_constraintEnd_toStartOf="@+id/performSearch"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <Button
         android:id="@+id/performSearch"
         android:layout_width="121dp"
         android:layout_height="58dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
         android:text="Perform Search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createEdge" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <TextView
         android:id="@+id/graphCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
         android:text="Graph Created: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startingVector" />
+        app:layout_constraintTop_toBottomOf="@+id/start" />
 
     <TextView
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
         android:text="Start"
@@ -165,24 +141,13 @@
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="35dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
-        android:text="Algorithm:"
+        android:text="Algorithm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weight" />
-
-    <EditText
-        android:id="@+id/editWeight"
-        android:layout_width="40dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="40dp"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        android:text="1.0"
-        app:layout_constraintStart_toEndOf="@+id/weight"
-        app:layout_constraintTop_toBottomOf="@+id/v0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/resetGraph"
@@ -213,76 +178,6 @@
         android:text="Added: "
         app:layout_constraintBottom_toTopOf="@+id/resetGraph"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/createEdge"
-        android:layout_width="112dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="Create Edge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
-
-    <EditText
-        android:id="@+id/v0"
-        android:layout_width="40dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="5dp"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        android:text="v0"
-        app:layout_constraintEnd_toStartOf="@+id/and"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
-
-    <EditText
-        android:id="@+id/v1"
-        android:layout_width="40dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="140dp"
-        android:scaleX="1.2"
-        android:scaleY="1.2"
-        android:text="v1"
-        app:layout_constraintStart_toEndOf="@+id/and"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/and"
-        android:layout_width="4dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="200dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:text="+"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
-
-    <TextView
-        android:id="@+id/createVertexText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:text="Create Vertex:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/createEdgeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
-        android:text="Create Edge:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
