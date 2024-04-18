@@ -12,9 +12,13 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements MainView {
     int counter = 0;
@@ -52,14 +56,23 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
                     String vertexName = editTextText2.getText().toString();
                     presenter.addVertexClick(vertexName);
+
+                    DrawingCanvas drawingCanvas = findViewById(R.id.drawingCanvas);
+
+                    presenter.addVertexClick(vertexName);
+
+                    vertexVisual vertex = new vertexVisual("Label", 500, 1500, 50);
+                    drawingCanvas.addVertex(vertex);
+
                 }
 
             });
 
             /** Temporarily removing DrawingCanvas functionality */
-          //  DrawingCanvas dc = findViewById(R.id.drawingCanvas);
-            presenter = new Presenter(this);
+            DrawingCanvas dc = findViewById(R.id.drawingCanvas);
+           presenter = new Presenter(this);
 
+            // Drop down menu
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -71,8 +84,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
-
-
     }
 
     @Override
@@ -84,5 +95,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void recentVertex(String vertexName) {
         nameOfVertex.setText("Name Of Vertex: " + vertexName);
     }
+
 }
 

@@ -10,31 +10,39 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DrawingCanvas extends View {
+
+    private List<Vertex> vertices = new ArrayList<>();
     public DrawingCanvas(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
     /** Temporarily commented out the DrawingCanvas functionality */
 
-   /* protected void onDraw( Canvas canvas ) {
+    public void addVertex(Vertex vertex) {
+        vertices.add(vertex);
+        invalidate();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         Paint paintStyle = new Paint();
         paintStyle.setColor(Color.RED);
 
-        canvas.drawCircle(100, 380, 45, paintStyle);
-
-        paintStyle.setARGB(128, 0, 50, 128);
-        canvas.drawCircle(100, 380, 90, paintStyle);
-
-        int canvasCenterWidth = canvas.getWidth() / 2;
-        int canvasCenterHeight = canvas.getHeight() / 2;
-        canvas.drawCircle(canvasCenterWidth, canvasCenterHeight - 100, 100, paintStyle);
-
-
+        for (Vertex vertex : vertices) {
+            if (vertex instanceof vertexVisual) {
+                vertexVisual visualVertex = (vertexVisual) vertex;
+                canvas.drawCircle(visualVertex.getX(), visualVertex.getY(), visualVertex.getRadius(), paintStyle);
+            }
+        }
     }
 
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         float touchX = event.getX();
         float touchY = event.getY();
@@ -43,6 +51,7 @@ public class DrawingCanvas extends View {
 
         switch (actionType) {
             case (MotionEvent.ACTION_DOWN):
+            addVertex(new Vertex(touchX, touchY));
             Log.d("onTouchEvent", "Pressed down " + touchX + " " + touchY);
             return true;
             case (MotionEvent.ACTION_UP):
@@ -53,6 +62,6 @@ public class DrawingCanvas extends View {
                 default:
                 return true;
         }
-    } */
+    }
 
 }

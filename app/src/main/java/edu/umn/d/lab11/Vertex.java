@@ -5,7 +5,7 @@ public class Vertex {
     private String vLabel;
     private boolean visited;
 
-    public Vertex()
+    public Vertex(float touchX, float touchY)
     {
         vLabel = "Unknown";
         visited = false;
