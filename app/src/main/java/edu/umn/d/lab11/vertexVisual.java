@@ -1,12 +1,12 @@
 package edu.umn.d.lab11;
 
-public class vertexVisual extends Vertex{
+public class VertexVisual extends Vertex{
     private float x;
     private float y;
     private float radius;
 
-    public vertexVisual(String label, float x, float y, float radius) {
-        super(label);
+    public VertexVisual(String vertexName, float x, float y, float radius) {
+        super(vertexName);
         this.x = x;
         this.y = y;
         this.radius = radius;

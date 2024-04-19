@@ -13,15 +13,19 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawingCanvas extends View {
-
+public class DrawingCanvas extends View implements MainView {
     private List<Vertex> vertices = new ArrayList<>();
+    private Presenter presenter;
+    private Vertex selectedVertex = null;
+
     public DrawingCanvas(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        presenter = new Presenter((MainView) context);
     }
 
-    /** Temporarily commented out the DrawingCanvas functionality */
 
+
+    @Override
     public void addVertex(Vertex vertex) {
         vertices.add(vertex);
         invalidate();
@@ -35,8 +39,8 @@ public class DrawingCanvas extends View {
         paintStyle.setColor(Color.RED);
 
         for (Vertex vertex : vertices) {
-            if (vertex instanceof vertexVisual) {
-                vertexVisual visualVertex = (vertexVisual) vertex;
+            if (vertex instanceof VertexVisual) {
+                VertexVisual visualVertex = (VertexVisual) vertex;
                 canvas.drawCircle(visualVertex.getX(), visualVertex.getY(), visualVertex.getRadius(), paintStyle);
             }
         }
@@ -48,20 +52,67 @@ public class DrawingCanvas extends View {
         float touchY = event.getY();
         int actionType = event.getActionMasked();
         long eTime = event.getEventTime();
+        Vertex vertex = new Vertex(touchX, touchY);
+        presenter.addVertex(vertex);
 
         switch (actionType) {
             case (MotionEvent.ACTION_DOWN):
             addVertex(new Vertex(touchX, touchY));
-            Log.d("onTouchEvent", "Pressed down " + touchX + " " + touchY);
-            return true;
+                selectedVertex = getSelectedVertex(touchX, touchY);
+                if (selectedVertex != null) {
+                    return true;
+                }
+                break;
+
+
             case (MotionEvent.ACTION_UP):
-                Log.d("onTouchEvent", "Pressed up " + touchX + " " + touchY);
+
+                selectedVertex = null;
                 return true;
+
+
             case (MotionEvent.ACTION_MOVE):
-                Log.d("onTouchEvent", "Move " + touchX + " " + touchY);
+
+                if (selectedVertex != null && selectedVertex instanceof VertexVisual) {
+                    VertexVisual visualVertex = (VertexVisual) selectedVertex;
+                    visualVertex.setX(touchX);
+                    visualVertex.setY(touchY);
+                    invalidate();
+                    return true;
+                }
+                break;
+
                 default:
                 return true;
         }
+        return super.onTouchEvent(event);
+    }
+
+    // Check if a vertex is clicked
+    public Vertex getSelectedVertex(float touchX, float touchY) {
+        for (Vertex vertex : vertices) {
+            if (vertex instanceof VertexVisual) {
+                VertexVisual visualVertex = (VertexVisual) vertex;
+                float dx = touchX - visualVertex.getX();
+                float dy = touchY - visualVertex.getY();
+                float distanceSquared = dx * dx + dy * dy;
+                if (distanceSquared <= visualVertex.getRadius() * visualVertex.getRadius()) {
+                    return vertex;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void addVertexClick() {
+
+    }
+
+    @Override
+    public void recentVertex(String vertexName) {
+
     }
 
 }
+

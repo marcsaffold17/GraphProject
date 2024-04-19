@@ -16,15 +16,16 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import java.util.Random;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements MainView {
-    int counter = 0;
     private Presenter presenter;
     private EditText editTextText2;
     private TextView nameOfVertex;
+    int counter = 0;
 
     private static final String TAG = "DemoInitialApp";
 
@@ -41,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         Button btn = (Button) findViewById(R.id.button);
 
+// TODO: Have the random int generation be constrained to be within the graph created space
+        Random rand = new Random();
+
         editTextText2 = findViewById(R.id.editTextText2);
         nameOfVertex = findViewById(R.id.nameOfVertex);
 
@@ -55,13 +59,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     text.setText ("Number Of Vertices: " + counter);
 
                     String vertexName = editTextText2.getText().toString();
-                    presenter.addVertexClick(vertexName);
+                    presenter.vertexCounter(vertexName);
 
                     DrawingCanvas drawingCanvas = findViewById(R.id.drawingCanvas);
 
-                    presenter.addVertexClick(vertexName);
+                    presenter.vertexCounter(vertexName);
 
-                    vertexVisual vertex = new vertexVisual("Label", 500, 1500, 50);
+                    VertexVisual vertex = new VertexVisual(vertexName, rand.nextInt(1000), rand.nextInt(1000), 20);
                     drawingCanvas.addVertex(vertex);
 
                 }
@@ -96,5 +100,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         nameOfVertex.setText("Name Of Vertex: " + vertexName);
     }
 
-}
+    @Override
+    public void addVertex(Vertex vertex) {
 
+    }
+
+}
