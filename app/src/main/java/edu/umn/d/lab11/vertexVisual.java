@@ -4,12 +4,14 @@ public class VertexVisual extends Vertex{
     private float x;
     private float y;
     private float radius;
+    private String vertexName;
 
     public VertexVisual(String vertexName, float x, float y, float radius) {
         super(vertexName);
         this.x = x;
         this.y = y;
         this.radius = radius;
+        this.vertexName = vertexName;
     }
 
     public float getX() {
@@ -23,7 +25,7 @@ public class VertexVisual extends Vertex{
     public float getRadius() {
         return radius;
     }
-
+    public String getVertexName() { return vertexName;}
     public void setX(float x) {
         this.x = x;
     }
@@ -35,5 +37,8 @@ public class VertexVisual extends Vertex{
     public void setRadius(float radius) {
         this.radius = radius;
     }
+    public void setVertexName(String VertexName) {this.vertexName = vertexName;}
+
+
 }
 

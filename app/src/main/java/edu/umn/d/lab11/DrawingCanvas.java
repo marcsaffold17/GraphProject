@@ -35,13 +35,18 @@ public class DrawingCanvas extends View implements MainView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Paint paintStyle = new Paint();
-        paintStyle.setColor(Color.RED);
+        Paint circlePaint = new Paint();
+        circlePaint.setColor(Color.RED);
+
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.BLACK);
+        textPaint.setTextSize(24);
 
         for (Vertex vertex : vertices) {
             if (vertex instanceof VertexVisual) {
                 VertexVisual visualVertex = (VertexVisual) vertex;
-                canvas.drawCircle(visualVertex.getX(), visualVertex.getY(), visualVertex.getRadius(), paintStyle);
+                canvas.drawCircle(visualVertex.getX(), visualVertex.getY(), visualVertex.getRadius(), circlePaint);
+                canvas.drawText(visualVertex.getVertexName(), visualVertex.getX() + visualVertex.getRadius() * 1.5f, visualVertex.getY(), textPaint);
             }
         }
     }

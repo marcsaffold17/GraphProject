@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         Button btn = (Button) findViewById(R.id.button);
 
-// TODO: Have the random int generation be constrained to be within the graph created space
         Random rand = new Random();
 
         editTextText2 = findViewById(R.id.editTextText2);
@@ -65,14 +64,22 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
                     presenter.vertexCounter(vertexName);
 
-                    VertexVisual vertex = new VertexVisual(vertexName, rand.nextInt(1000), rand.nextInt(1000), 20);
+                    // Constraining the vertex to be within the "Graph Created" space
+                    int maxX = 1000;
+                    int maxY = 1500;
+                    int minX = 20;
+                    int minY = 700;
+
+                    int randomX = rand.nextInt((maxX - minX) + 1) + minX;
+                    int randomY = rand.nextInt((maxY - minY) + 1) + minY;
+
+                    VertexVisual vertex = new VertexVisual(vertexName, randomX, randomY, 20);
                     drawingCanvas.addVertex(vertex);
 
                 }
 
             });
 
-            /** Temporarily removing DrawingCanvas functionality */
             DrawingCanvas dc = findViewById(R.id.drawingCanvas);
            presenter = new Presenter(this);
 
