@@ -16,6 +16,9 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import java.util.HashMap;
@@ -25,7 +28,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private Presenter presenter;
     private EditText editTextText2;
     private TextView nameOfVertex;
+    private EditText editTextEdge;
+    private EditText editTextEdge2;
     int counter = 0;
+    private DrawingCanvas drawingCanvas;
+    private List<VertexVisual> vertices = new ArrayList<>();
 
     private static final String TAG = "DemoInitialApp";
 
@@ -37,17 +44,21 @@ public class MainActivity extends AppCompatActivity implements MainView {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        Button btn = (Button) findViewById(R.id.button);
+            presenter = new Presenter(this);
+            Button createVertexButton = findViewById(R.id.button);
+            DrawingCanvas dc = findViewById(R.id.drawingCanvas);
 
-        Random rand = new Random();
 
-        editTextText2 = findViewById(R.id.editTextText2);
-        nameOfVertex = findViewById(R.id.nameOfVertex);
+            Random rand = new Random();
 
-            btn.setOnClickListener(new View.OnClickListener() {
+            editTextText2 = findViewById(R.id.editTextText2);
+            editTextEdge = findViewById(R.id.editTextEdge);
+            editTextEdge2 = findViewById(R.id.editTextEdge2);
+            nameOfVertex = findViewById(R.id.nameOfVertex);
+            drawingCanvas = findViewById(R.id.drawingCanvas);
+
+            createVertexButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Log.i("DemoInitialApp", "This button adds a vertex");
@@ -75,13 +86,35 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
                     VertexVisual vertex = new VertexVisual(vertexName, randomX, randomY, 20);
                     drawingCanvas.addVertex(vertex);
+                    vertices.add(vertex);
 
                 }
-
             });
 
-            DrawingCanvas dc = findViewById(R.id.drawingCanvas);
-           presenter = new Presenter(this);
+            Button btnCreateEdge = findViewById(R.id.createEdge);
+            btnCreateEdge.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String vertexName1 = editTextEdge.getText().toString();
+                    String vertexName2 = editTextEdge2.getText().toString();
+
+                    VertexVisual vertex1 = findVertexVisualByName(vertexName1);
+                    VertexVisual vertex2 = findVertexVisualByName(vertexName2);
+
+                    if (vertex1 != null && vertex2 != null) {
+                        float distance = calculateDistance(vertex1, vertex2);
+
+                        EdgeVisual edge = new EdgeVisual(vertex1, vertex2, distance);
+                        drawingCanvas.addEdge(edge);
+                        drawingCanvas.invalidate();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Vertices not found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            return insets;
+        });
 
             // Drop down menu
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -112,4 +145,29 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     }
 
+    private void addVertex(String vertexName) {
+        counter++;
+        TextView text = findViewById(R.id.numberVertices);
+        text.setText("Number Of Vertices: " + counter);
+        vertices.add(new VertexVisual(vertexName, 0, 0, 0));
+        nameOfVertex.setText("Added Vertex: " + vertexName);
+    }
+
+    private VertexVisual findVertexVisualByName(String name) {
+        for (VertexVisual vertex : vertices) {
+            if (vertex.getVertexName().equals(name)) {
+                return vertex;
+            }
+        }
+        return null;
+    }
+
+    private float calculateDistance(VertexVisual v1, VertexVisual v2) {
+        float dx = v2.getX() - v1.getX();
+        float dy = v2.getY() - v1.getY();
+        return (float) Math.sqrt(dx * dx + dy * dy);
+    }
+
+
 }
+

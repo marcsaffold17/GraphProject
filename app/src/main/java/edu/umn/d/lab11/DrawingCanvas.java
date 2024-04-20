@@ -15,6 +15,7 @@ import java.util.List;
 
 public class DrawingCanvas extends View implements MainView {
     private List<Vertex> vertices = new ArrayList<>();
+    private List<EdgeVisual> edges = new ArrayList<>();
     private Presenter presenter;
     private Vertex selectedVertex = null;
 
@@ -22,8 +23,6 @@ public class DrawingCanvas extends View implements MainView {
         super(context, attrs);
         presenter = new Presenter((MainView) context);
     }
-
-
 
     @Override
     public void addVertex(Vertex vertex) {
@@ -42,6 +41,23 @@ public class DrawingCanvas extends View implements MainView {
         textPaint.setColor(Color.BLACK);
         textPaint.setTextSize(24);
 
+        Paint edgePaint = new Paint();
+        edgePaint.setColor(Color.BLUE);
+        edgePaint.setStrokeWidth(5);
+
+        // Draw edges
+        for (EdgeVisual edge : edges) {
+            VertexVisual srcVertex = edge.getSource();
+            VertexVisual dstVertex = edge.getDestination();
+            canvas.drawLine(srcVertex.getX(), srcVertex.getY(), dstVertex.getX(), dstVertex.getY(), edgePaint);
+
+            float midX = (srcVertex.getX() + dstVertex.getX()) / 2;
+            float midY = (srcVertex.getY() + dstVertex.getY()) / 2;
+
+            canvas.drawText(String.valueOf(edge.getWeight()), midX, midY, textPaint);
+        }
+
+        // Draw vertices
         for (Vertex vertex : vertices) {
             if (vertex instanceof VertexVisual) {
                 VertexVisual visualVertex = (VertexVisual) vertex;
@@ -83,6 +99,7 @@ public class DrawingCanvas extends View implements MainView {
                     visualVertex.setX(touchX);
                     visualVertex.setY(touchY);
                     invalidate();
+                    updateEdgeDistances();
                     return true;
                 }
                 break;
@@ -109,6 +126,23 @@ public class DrawingCanvas extends View implements MainView {
         return null;
     }
 
+    private void updateEdgeDistances() {
+        for (EdgeVisual edge : edges) {
+            VertexVisual srcVertex = edge.getSource();
+            VertexVisual dstVertex = edge.getDestination();
+            float distance = calculateDistance(srcVertex, dstVertex);
+            edge.setWeight(distance);
+        }
+        invalidate();
+    }
+
+
+    private float calculateDistance(VertexVisual v1, VertexVisual v2) {
+        float dx = v2.getX() - v1.getX();
+        float dy = v2.getY() - v1.getY();
+        return (float) Math.sqrt(dx * dx + dy * dy);
+    }
+
     @Override
     public void addVertexClick() {
 
@@ -117,6 +151,11 @@ public class DrawingCanvas extends View implements MainView {
     @Override
     public void recentVertex(String vertexName) {
 
+    }
+
+
+    public void addEdge(EdgeVisual edge) {
+        edges.add(edge);
     }
 
 }
