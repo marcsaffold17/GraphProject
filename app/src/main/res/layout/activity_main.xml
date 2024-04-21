@@ -86,7 +86,7 @@
         android:scaleX="1.5"
         android:scaleY="1.5"
         android:text="Added Vertex:"
-        app:layout_constraintBottom_toTopOf="@+id/resetGraph"
+        app:layout_constraintBottom_toTopOf="@+id/clearGraph"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
@@ -157,11 +157,11 @@
         app:layout_constraintTop_toBottomOf="@+id/edgeLabel2" />
 
     <Button
-        android:id="@+id/resetGraph"
+        android:id="@+id/clearGraph"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="Reset Graph"
+        android:text="Clear Graph"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

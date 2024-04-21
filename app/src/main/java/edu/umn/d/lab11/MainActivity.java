@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     int maxX = 1000;
                     int maxY = 1500;
                     int minX = 20;
-                    int minY = 900;
+                    int minY = 1000;
 
                     int randomX = rand.nextInt((maxX - minX) + 1) + minX;
                     int randomY = rand.nextInt((maxY - minY) + 1) + minY;
@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
                     VertexVisual vertex = new VertexVisual(vertexName, randomX, randomY, 20);
                     drawingCanvas.addVertex(vertex);
                     vertices.add(vertex);
+
+                    nameOfVertex.setText("Added Vertex: " + vertexName);
                 }
             });
 
@@ -103,6 +105,21 @@ public class MainActivity extends AppCompatActivity {
             );
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
+
+            Button clearGraphButton = findViewById(R.id.clearGraph);
+            clearGraphButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    vertices.clear();
+                    drawingCanvas.clearEdges();
+                    drawingCanvas.clearVertices();
+                    counter = 0;
+                    TextView text = findViewById(R.id.numberVertices);
+                    text.setText("Number Of Vertices: " + counter);
+                    Toast.makeText(getApplicationContext(), "Graph cleared", Toast.LENGTH_SHORT).show();
+                    nameOfVertex.setText("Added Vertex: ");
+                }
+            });
 
             return insets;
         });

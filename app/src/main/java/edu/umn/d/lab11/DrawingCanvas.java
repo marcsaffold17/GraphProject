@@ -106,4 +106,14 @@ public class DrawingCanvas extends View {
         edges.add(edge);
         invalidate();
     }
+
+    public void clearEdges() {
+        edges.clear();
+        invalidate(); // Invalidate the view to trigger a redraw
+    }
+
+    public void clearVertices() {
+        vertices.clear();
+        invalidate(); // Invalidate the view to trigger a redraw
+    }
 }
