@@ -76,6 +76,7 @@ public class DrawingCanvas extends View {
                 if (selectedVertex != null) {
                     selectedVertex.setX(touchX);
                     selectedVertex.setY(touchY);
+                    updateEdgeDistance(selectedVertex);
                     invalidate();
                     return true;
                 }
@@ -109,11 +110,25 @@ public class DrawingCanvas extends View {
 
     public void clearEdges() {
         edges.clear();
-        invalidate(); // Invalidate the view to trigger a redraw
+        invalidate();
     }
 
     public void clearVertices() {
         vertices.clear();
-        invalidate(); // Invalidate the view to trigger a redraw
+        invalidate();
+    }
+
+    private void updateEdgeDistance(VertexVisual movedVertex) {
+        for (EdgeVisual edge : edges) {
+            if (edge.getSource() == movedVertex || edge.getDestination() == movedVertex) {
+                float distance = calculateDistance(edge.getSource(), edge.getDestination());
+                edge.setWeight(distance);
+            }
+        }
+    }
+    private float calculateDistance(VertexVisual v1, VertexVisual v2) {
+        float dx = v2.getX() - v1.getX();
+        float dy = v2.getY() - v1.getY();
+        return (int) Math.sqrt(dx * dx + dy * dy);
     }
 }

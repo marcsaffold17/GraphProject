@@ -121,6 +121,59 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            Button sampleGraph = findViewById(R.id.sampleGraph);
+            sampleGraph.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    VertexVisual v0 = new VertexVisual("v0", 500, 1000, 20);
+                    drawingCanvas.addVertex(v0);
+                    vertices.add(v0);
+
+                    VertexVisual v1 = new VertexVisual("v1", 300, 1200, 20);
+                    drawingCanvas.addVertex(v1);
+                    vertices.add(v1);
+
+                    VertexVisual v2 = new VertexVisual("v2", 700, 1200, 20);
+                    drawingCanvas.addVertex(v2);
+                    vertices.add(v2);
+
+                    VertexVisual v3 = new VertexVisual("v3", 200, 1400, 20);
+                    drawingCanvas.addVertex(v3);
+                    vertices.add(v3);
+
+                    VertexVisual v4 = new VertexVisual("v4", 400, 1400, 20);
+                    drawingCanvas.addVertex(v4);
+                    vertices.add(v4);
+
+                    VertexVisual v5 = new VertexVisual("v5", 600, 1400, 20);
+                    drawingCanvas.addVertex(v5);
+                    vertices.add(v5);
+
+                    VertexVisual v6 = new VertexVisual("v6", 800, 1400, 20);
+                    drawingCanvas.addVertex(v6);
+                    vertices.add(v6);
+
+
+                    EdgeVisual edge1 = new EdgeVisual(v0, v1, calculateDistance(v0, v1));
+                    drawingCanvas.addEdge(edge1);
+
+                    EdgeVisual edge2 = new EdgeVisual(v0, v2, calculateDistance(v0, v2));
+                    drawingCanvas.addEdge(edge2);
+
+                    EdgeVisual edge3 = new EdgeVisual(v1, v3, calculateDistance(v1, v3));
+                    drawingCanvas.addEdge(edge3);
+
+                    EdgeVisual edge4 = new EdgeVisual(v1, v4, calculateDistance(v1, v4));
+                    drawingCanvas.addEdge(edge4);
+
+                    EdgeVisual edge5 = new EdgeVisual(v2, v5, calculateDistance(v2, v5));
+                    drawingCanvas.addEdge(edge5);
+
+                    EdgeVisual edge6 = new EdgeVisual(v2, v6, calculateDistance(v2, v6));
+                    drawingCanvas.addEdge(edge6);
+                }
+            });
+
             return insets;
         });
     }
@@ -137,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     private float calculateDistance(VertexVisual v1, VertexVisual v2) {
         float dx = v2.getX() - v1.getX();
         float dy = v2.getY() - v1.getY();
-        return (float) Math.sqrt(dx * dx + dy * dy);
+        return (int) Math.sqrt(dx * dx + dy * dy);
     }
 }
 
