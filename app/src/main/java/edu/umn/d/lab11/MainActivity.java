@@ -175,6 +175,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
                     EdgeVisual edge6 = new EdgeVisual(v2, v6, calculateDistance(v2, v6));
                     drawingCanvas.addEdge(edge6);
+
+                    TextView text = findViewById(R.id.numberVertices);
+                    text.setText("Number Of Vertices: " + 7);
+                    nameOfVertex.setText("Added Sample Graph");
                 }
             });
 
