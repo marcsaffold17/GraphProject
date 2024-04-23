@@ -19,13 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView {
     private EditText editTextText2;
     private TextView nameOfVertex;
     private EditText editTextEdge;
     private EditText editTextEdge2;
     private DrawingCanvas drawingCanvas;
     private List<VertexVisual> vertices = new ArrayList<>();
+    private Presenter presenter;
     private int counter = 0;
 
     private static final String TAG = "DemoInitialApp";
@@ -39,16 +40,15 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 
-            Button createVertexButton = findViewById(R.id.button);
             drawingCanvas = findViewById(R.id.drawingCanvas);
-
-            Random rand = new Random();
-
             editTextText2 = findViewById(R.id.editTextText2);
             editTextEdge = findViewById(R.id.editTextEdge);
             editTextEdge2 = findViewById(R.id.editTextEdge2);
             nameOfVertex = findViewById(R.id.nameOfVertex);
+            Random rand = new Random();
 
+            // Create vertex button
+            Button createVertexButton = findViewById(R.id.button);
             createVertexButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            // Create edge button
             Button btnCreateEdge = findViewById(R.id.createEdge);
             btnCreateEdge.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            // Drop down menu
             Spinner spinner = findViewById(R.id.spinner);
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                     MainActivity.this,
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
+            // Clear graph button
             Button clearGraphButton = findViewById(R.id.clearGraph);
             clearGraphButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            // Sample graph button
             Button sampleGraph = findViewById(R.id.sampleGraph);
             sampleGraph.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -178,7 +182,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private VertexVisual findVertexVisualByName(String name) {
+    @Override
+    public VertexVisual findVertexVisualByName(String name) {
         for (VertexVisual vertex : vertices) {
             if (vertex.getVertexName().equals(name)) {
                 return vertex;
@@ -187,10 +192,13 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    private float calculateDistance(VertexVisual v1, VertexVisual v2) {
+    @Override
+    public float calculateDistance(VertexVisual v1, VertexVisual v2) {
         float dx = v2.getX() - v1.getX();
         float dy = v2.getY() - v1.getY();
         return (int) Math.sqrt(dx * dx + dy * dy);
     }
+    @Override
+    public void recentVertex(String vertexName){};
 }
 

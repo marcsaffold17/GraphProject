@@ -13,17 +13,18 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawingCanvas extends View {
+public class DrawingCanvas extends View implements DrawingCanvasView{
     private List<VertexVisual> vertices = new ArrayList<>();
     private List<EdgeVisual> edges = new ArrayList<>();
     private VertexVisual selectedVertex = null;
+    private Presenter presenter;
 
     public DrawingCanvas(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         Paint circlePaint = new Paint();
@@ -86,7 +87,8 @@ public class DrawingCanvas extends View {
     }
 
     // Check if a vertex is clicked
-    private VertexVisual getSelectedVertex(float touchX, float touchY) {
+    @Override
+    public VertexVisual getSelectedVertex(float touchX, float touchY) {
         for (VertexVisual vertex : vertices) {
             float dx = touchX - vertex.getX();
             float dy = touchY - vertex.getY();
@@ -97,28 +99,28 @@ public class DrawingCanvas extends View {
         }
         return null;
     }
-
+    @Override
     public void addVertex(VertexVisual vertex) {
         vertices.add(vertex);
         invalidate();
     }
-
+    @Override
     public void addEdge(EdgeVisual edge) {
         edges.add(edge);
         invalidate();
     }
-
+    @Override
     public void clearEdges() {
         edges.clear();
         invalidate();
     }
-
+    @Override
     public void clearVertices() {
         vertices.clear();
         invalidate();
     }
-
-    private void updateEdgeDistance(VertexVisual movedVertex) {
+    @Override
+    public void updateEdgeDistance(VertexVisual movedVertex) {
         for (EdgeVisual edge : edges) {
             if (edge.getSource() == movedVertex || edge.getDestination() == movedVertex) {
                 float distance = calculateDistance(edge.getSource(), edge.getDestination());
@@ -126,7 +128,8 @@ public class DrawingCanvas extends View {
             }
         }
     }
-    private float calculateDistance(VertexVisual v1, VertexVisual v2) {
+    @Override
+    public float calculateDistance(VertexVisual v1, VertexVisual v2) {
         float dx = v2.getX() - v1.getX();
         float dy = v2.getY() - v1.getY();
         return (int) Math.sqrt(dx * dx + dy * dy);

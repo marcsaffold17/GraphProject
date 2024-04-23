@@ -2,9 +2,8 @@ package edu.umn.d.lab11;
 
 
 public interface MainView {
-    void addVertexClick();
+
+    VertexVisual findVertexVisualByName(String name);
+    float calculateDistance(VertexVisual v1, VertexVisual v2);
     void recentVertex(String vertexName);
-    void addVertex(Vertex vertex);
-
-
 }
