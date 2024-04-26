@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     int maxX = 1000;
                     int maxY = 1900;
                     int minX = 20;
-                    int minY = 600;
+                    int minY = 700;
 
                     int randomX = rand.nextInt((maxX - minX) + 1) + minX;
                     int randomY = rand.nextInt((maxY - minY) + 1) + minY;
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     int maxX = 1000;
                     int maxY = 1900;
                     int minX = 20;
-                    int minY = 600;
+                    int minY = 700;
 
                     randomX = rand.nextInt((maxX - minX) + 1) + minX;
                     randomY = rand.nextInt((maxY - minY) + 1) + minY;

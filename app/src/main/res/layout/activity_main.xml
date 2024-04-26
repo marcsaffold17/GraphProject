@@ -12,7 +12,7 @@
         android:id="@+id/drawingCanvas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
     <TextView
@@ -93,13 +93,13 @@
         android:id="@+id/graphCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="10dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
         android:text="Graph Created: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edgeLabel2" />
+        app:layout_constraintTop_toBottomOf="@+id/edgeColorText" />
 
     <Button
         android:id="@+id/clearGraph"
@@ -118,7 +118,6 @@
         android:text="Sample Graph"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 
     <TextView
@@ -182,5 +181,47 @@
         android:text="Create Edge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <SeekBar
+        android:id="@+id/vertexColorSlider"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEdge2" />
+
+    <TextView
+        android:id="@+id/vertexColorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="10dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:text="Vertex Color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edgeLabel2" />
+
+    <TextView
+        android:id="@+id/edgeColorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:text="Edge Color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vertexColorText" />
+
+    <SeekBar
+        android:id="@+id/edgeColorSlider"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vertexColorSlider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
