@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     text.setText("Number Of Vertices: " + counter);
 
                     int maxX = 1000;
-                    int maxY = 1500;
+                    int maxY = 1900;
                     int minX = 20;
-                    int minY = 1000;
+                    int minY = 600;
 
                     int randomX = rand.nextInt((maxX - minX) + 1) + minX;
                     int randomY = rand.nextInt((maxY - minY) + 1) + minY;
@@ -98,16 +98,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 }
             });
 
-            // Drop down menu
-            Spinner spinner = findViewById(R.id.spinner);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                    MainActivity.this,
-                    R.array.search_methods,
-                    android.R.layout.simple_spinner_item
-            );
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-
             // Clear graph button
             Button clearGraphButton = findViewById(R.id.clearGraph);
             clearGraphButton.setOnClickListener(new View.OnClickListener() {
@@ -129,34 +119,59 @@ public class MainActivity extends AppCompatActivity implements MainView {
             sampleGraph.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    VertexVisual v0 = new VertexVisual("v0", 500, 1000, 20);
+
+                    vertices.clear();
+                    drawingCanvas.clearEdges();
+                    drawingCanvas.clearVertices();
+
+                    int randomX;
+                    int randomY;
+                    int maxX = 1000;
+                    int maxY = 1900;
+                    int minX = 20;
+                    int minY = 600;
+
+                    randomX = rand.nextInt((maxX - minX) + 1) + minX;
+                    randomY = rand.nextInt((maxY - minY) + 1) + minY;
+                    VertexVisual v0 = new VertexVisual("v0", randomX, randomY, 20);
                     drawingCanvas.addVertex(v0);
                     vertices.add(v0);
 
-                    VertexVisual v1 = new VertexVisual("v1", 300, 1200, 20);
+                    randomX = rand.nextInt((maxX - minX) + 1) + minX;
+                    randomY = rand.nextInt((maxY - minY) + 1) + minY;
+                    VertexVisual v1 = new VertexVisual("v1", randomX, randomY, 20);
                     drawingCanvas.addVertex(v1);
                     vertices.add(v1);
 
-                    VertexVisual v2 = new VertexVisual("v2", 700, 1200, 20);
+                    randomX = rand.nextInt((maxX - minX) + 1) + minX;
+                    randomY = rand.nextInt((maxY - minY) + 1) + minY;
+                    VertexVisual v2 = new VertexVisual("v2", randomX, randomY, 20);
                     drawingCanvas.addVertex(v2);
                     vertices.add(v2);
 
-                    VertexVisual v3 = new VertexVisual("v3", 200, 1400, 20);
+                    randomX = rand.nextInt((maxX - minX) + 1) + minX;
+                    randomY = rand.nextInt((maxY - minY) + 1) + minY;
+                    VertexVisual v3 = new VertexVisual("v3", randomX, randomY, 20);
                     drawingCanvas.addVertex(v3);
                     vertices.add(v3);
 
-                    VertexVisual v4 = new VertexVisual("v4", 400, 1400, 20);
+                    randomX = rand.nextInt((maxX - minX) + 1) + minX;
+                    randomY = rand.nextInt((maxY - minY) + 1) + minY;
+                    VertexVisual v4 = new VertexVisual("v4", randomX, randomY, 20);
                     drawingCanvas.addVertex(v4);
                     vertices.add(v4);
 
-                    VertexVisual v5 = new VertexVisual("v5", 600, 1400, 20);
+                    randomX = rand.nextInt((maxX - minX) + 1) + minX;
+                    randomY = rand.nextInt((maxY - minY) + 1) + minY;
+                    VertexVisual v5 = new VertexVisual("v5", randomX, randomY, 20);
                     drawingCanvas.addVertex(v5);
                     vertices.add(v5);
 
-                    VertexVisual v6 = new VertexVisual("v6", 800, 1400, 20);
+                    randomX = rand.nextInt((maxX - minX) + 1) + minX;
+                    randomY = rand.nextInt((maxY - minY) + 1) + minY;
+                    VertexVisual v6 = new VertexVisual("v6", randomX, randomY, 20);
                     drawingCanvas.addVertex(v6);
                     vertices.add(v6);
-
 
                     EdgeVisual edge1 = new EdgeVisual(v0, v1, calculateDistance(v0, v1));
                     drawingCanvas.addEdge(edge1);
