@@ -27,18 +27,24 @@ public class DrawingCanvas extends View implements DrawingCanvasView{
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Paint circlePaint = new Paint();
-        circlePaint.setColor(Color.RED);
+        Paint vertexPaint = new Paint();
+        vertexPaint.setColor(Color.RED);
 
-        Paint textPaint = new Paint();
-        textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(24);
+        Paint vertexTextPaint = new Paint();
+        vertexTextPaint.setColor(Color.BLACK);
+        vertexTextPaint.setTextSize(24);
 
         Paint edgePaint = new Paint();
         edgePaint.setColor(Color.BLUE);
         edgePaint.setStrokeWidth(5);
 
-        // Draw edges
+        // Draws vertices
+        for (VertexVisual vertex : vertices) {
+            canvas.drawCircle(vertex.getX(), vertex.getY(), vertex.getRadius(), vertexPaint);
+            canvas.drawText(vertex.getVertexName(), vertex.getX() + vertex.getRadius() * 1.5f, vertex.getY(), vertexTextPaint);
+        }
+
+        // Draws edges
         for (EdgeVisual edge : edges) {
             VertexVisual srcVertex = edge.getSource();
             VertexVisual dstVertex = edge.getDestination();
@@ -47,16 +53,11 @@ public class DrawingCanvas extends View implements DrawingCanvasView{
             float midX = (srcVertex.getX() + dstVertex.getX()) / 2;
             float midY = (srcVertex.getY() + dstVertex.getY()) / 2;
 
-            canvas.drawText(String.valueOf(edge.getWeight()), midX, midY, textPaint);
-        }
-
-        // Draw vertices
-        for (VertexVisual vertex : vertices) {
-            canvas.drawCircle(vertex.getX(), vertex.getY(), vertex.getRadius(), circlePaint);
-            canvas.drawText(vertex.getVertexName(), vertex.getX() + vertex.getRadius() * 1.5f, vertex.getY(), textPaint);
+            canvas.drawText(String.valueOf(edge.getWeight()), midX, midY, vertexTextPaint);
         }
     }
 
+    // Handles user interaction with vertex
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float touchX = event.getX();
@@ -92,8 +93,8 @@ public class DrawingCanvas extends View implements DrawingCanvasView{
         for (VertexVisual vertex : vertices) {
             float dx = touchX - vertex.getX();
             float dy = touchY - vertex.getY();
-            float distanceSquared = dx * dx + dy * dy;
-            if (distanceSquared <= vertex.getRadius() * vertex.getRadius()) {
+            float clickRange = dx * dx + dy * dy;
+            if (clickRange <= vertex.getRadius() * vertex.getRadius()) {
                 return vertex;
             }
         }
@@ -123,13 +124,15 @@ public class DrawingCanvas extends View implements DrawingCanvasView{
     public void updateEdgeDistance(VertexVisual movedVertex) {
         for (EdgeVisual edge : edges) {
             if (edge.getSource() == movedVertex || edge.getDestination() == movedVertex) {
-                float distance = calculateDistance(edge.getSource(), edge.getDestination());
+                float distance = edgeDistance(edge.getSource(), edge.getDestination());
                 edge.setWeight(distance);
             }
         }
     }
+
+    // Calculates distance between vertices
     @Override
-    public float calculateDistance(VertexVisual v1, VertexVisual v2) {
+    public float edgeDistance(VertexVisual v1, VertexVisual v2) {
         float dx = v2.getX() - v1.getX();
         float dy = v2.getY() - v1.getY();
         return (int) Math.sqrt(dx * dx + dy * dy);

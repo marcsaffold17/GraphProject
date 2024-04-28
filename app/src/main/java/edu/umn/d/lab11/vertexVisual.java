@@ -25,7 +25,9 @@ public class VertexVisual extends Vertex{
     public float getRadius() {
         return radius;
     }
-    public String getVertexName() { return vertexName;}
+    public String getVertexName() {
+        return vertexName;
+    }
     public void setX(float x) {
         this.x = x;
     }
@@ -37,7 +39,9 @@ public class VertexVisual extends Vertex{
     public void setRadius(float radius) {
         this.radius = radius;
     }
-    public void setVertexName(String VertexName) {this.vertexName = vertexName;}
+    public void setVertexName(String VertexName) {
+        this.vertexName = vertexName;
+    }
 
 
 }

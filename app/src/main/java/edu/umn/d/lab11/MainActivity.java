@@ -2,10 +2,8 @@ package edu.umn.d.lab11;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements MainView {
-    private EditText editTextText2;
+    private EditText editTextVertexLabel;
     private TextView nameOfVertex;
     private EditText editTextEdge;
     private EditText editTextEdge2;
@@ -28,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private List<VertexVisual> vertices = new ArrayList<>();
     private Presenter presenter;
     private int counter = 0;
-
     private static final String TAG = "DemoInitialApp";
 
     @Override
@@ -41,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 
             drawingCanvas = findViewById(R.id.drawingCanvas);
-            editTextText2 = findViewById(R.id.editTextText2);
+            editTextVertexLabel = findViewById(R.id.editTextVertexLabel);
             editTextEdge = findViewById(R.id.editTextEdge);
             editTextEdge2 = findViewById(R.id.editTextEdge2);
             nameOfVertex = findViewById(R.id.nameOfVertex);
@@ -54,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 public void onClick(View v) {
                     Toast.makeText(getApplicationContext(), "Added Vertex", Toast.LENGTH_SHORT).show();
 
-                    String vertexName = editTextText2.getText().toString();
+                    String vertexName = editTextVertexLabel.getText().toString();
 
                     counter++;
                     TextView text = (TextView) findViewById(R.id.numberVertices);
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     int maxX = 1000;
                     int maxY = 1900;
                     int minX = 20;
-                    int minY = 700;
+                    int minY = 720;
 
                     int randomX = rand.nextInt((maxX - minX) + 1) + minX;
                     int randomY = rand.nextInt((maxY - minY) + 1) + minY;
@@ -84,16 +81,17 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     String vertexName1 = editTextEdge.getText().toString();
                     String vertexName2 = editTextEdge2.getText().toString();
 
-                    VertexVisual vertex1 = findVertexVisualByName(vertexName1);
-                    VertexVisual vertex2 = findVertexVisualByName(vertexName2);
+                    VertexVisual vertex1 = findVertexName(vertexName1);
+                    VertexVisual vertex2 = findVertexName(vertexName2);
 
                     if (vertex1 != null && vertex2 != null) {
-                        float distance = calculateDistance(vertex1, vertex2);
+                        float distance = edgeDistance(vertex1, vertex2);
 
                         EdgeVisual edge = new EdgeVisual(vertex1, vertex2, distance);
                         drawingCanvas.addEdge(edge);
+                        Toast.makeText(getApplicationContext(), "Added Edge", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Vertices not found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "One Or More Vertex Not Found", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -109,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     counter = 0;
                     TextView text = findViewById(R.id.numberVertices);
                     text.setText("Number Of Vertices: " + counter);
-                    Toast.makeText(getApplicationContext(), "Graph cleared", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Graph Cleared", Toast.LENGTH_SHORT).show();
                     nameOfVertex.setText("Added Vertex: ");
                 }
             });
@@ -129,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     int maxX = 1000;
                     int maxY = 1900;
                     int minX = 20;
-                    int minY = 700;
+                    int minY = 720;
 
                     randomX = rand.nextInt((maxX - minX) + 1) + minX;
                     randomY = rand.nextInt((maxY - minY) + 1) + minY;
@@ -173,22 +171,22 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     drawingCanvas.addVertex(v6);
                     vertices.add(v6);
 
-                    EdgeVisual edge1 = new EdgeVisual(v0, v1, calculateDistance(v0, v1));
+                    EdgeVisual edge1 = new EdgeVisual(v0, v1, edgeDistance(v0, v1));
                     drawingCanvas.addEdge(edge1);
 
-                    EdgeVisual edge2 = new EdgeVisual(v0, v2, calculateDistance(v0, v2));
+                    EdgeVisual edge2 = new EdgeVisual(v0, v2, edgeDistance(v0, v2));
                     drawingCanvas.addEdge(edge2);
 
-                    EdgeVisual edge3 = new EdgeVisual(v1, v3, calculateDistance(v1, v3));
+                    EdgeVisual edge3 = new EdgeVisual(v1, v3, edgeDistance(v1, v3));
                     drawingCanvas.addEdge(edge3);
 
-                    EdgeVisual edge4 = new EdgeVisual(v1, v4, calculateDistance(v1, v4));
+                    EdgeVisual edge4 = new EdgeVisual(v1, v4, edgeDistance(v1, v4));
                     drawingCanvas.addEdge(edge4);
 
-                    EdgeVisual edge5 = new EdgeVisual(v2, v5, calculateDistance(v2, v5));
+                    EdgeVisual edge5 = new EdgeVisual(v2, v5, edgeDistance(v2, v5));
                     drawingCanvas.addEdge(edge5);
 
-                    EdgeVisual edge6 = new EdgeVisual(v2, v6, calculateDistance(v2, v6));
+                    EdgeVisual edge6 = new EdgeVisual(v2, v6, edgeDistance(v2, v6));
                     drawingCanvas.addEdge(edge6);
 
                     TextView text = findViewById(R.id.numberVertices);
@@ -196,13 +194,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     nameOfVertex.setText("Added Sample Graph");
                 }
             });
-
             return insets;
         });
     }
 
+    // Finds the name of the most recently added vertex
     @Override
-    public VertexVisual findVertexVisualByName(String name) {
+    public VertexVisual findVertexName(String name) {
         for (VertexVisual vertex : vertices) {
             if (vertex.getVertexName().equals(name)) {
                 return vertex;
@@ -211,13 +209,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
         return null;
     }
 
+    // Calculates distance between vertices
     @Override
-    public float calculateDistance(VertexVisual v1, VertexVisual v2) {
+    public float edgeDistance(VertexVisual v1, VertexVisual v2) {
         float dx = v2.getX() - v1.getX();
         float dy = v2.getY() - v1.getY();
         return (int) Math.sqrt(dx * dx + dy * dy);
     }
-    @Override
-    public void recentVertex(String vertexName){};
 }
 

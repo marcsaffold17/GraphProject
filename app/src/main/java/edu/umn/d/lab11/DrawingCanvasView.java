@@ -7,5 +7,5 @@ public interface DrawingCanvasView {
     void clearEdges();
     void clearVertices();
     void updateEdgeDistance(VertexVisual movedVertex);
-    float calculateDistance(VertexVisual v1, VertexVisual v2);
+    float edgeDistance(VertexVisual v1, VertexVisual v2);
 }
