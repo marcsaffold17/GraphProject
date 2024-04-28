@@ -1,33 +1,17 @@
 package edu.umn.d.lab11;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Presenter {
 
     private Graph graph;
     private MainView view;
-    private String recentVertexName;
-    private List<Vertex> vertices = new ArrayList<>();
+    private DrawingCanvasView canvasView;
 
-
-
-    public Presenter(MainView view) {
+    public Presenter(MainView view, DrawingCanvasView canvasView) {
+        this.graph = new Graph();
         this.view = view;
-        graph = new Graph();
-        recentVertexName = "";
+        this.canvasView = canvasView;
     }
 
-    public void vertexCounter(String vertexName) {
-        Vertex newVertex = new Vertex(vertexName);
-        graph.addVertex(newVertex);
-
-        recentVertexName = vertexName;
-        view.recentVertex(recentVertexName);
-    }
-
-    public void addVertex(Vertex vertex) {
-        vertices.add(vertex);
-    }
+    // Various presenter functions that I couldn't figure out
 
 }
