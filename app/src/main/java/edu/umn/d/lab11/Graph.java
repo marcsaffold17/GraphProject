@@ -5,17 +5,28 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class Graph {
+    /**
+     * Hashmap for storing vertices
+     */
     public Graph()
     {
         // Removed parameter
         m_adjacencyList = new HashMap<>();
     }
 
+    /**
+     * Counts amount of vertices in graph
+     * @return
+     */
     public int numVertices()
     {
         return m_adjacencyList.size();
     }
 
+    /**
+     * Adds vertex to linked list
+     * @param v
+     */
     public void addVertex (Vertex v)
     {
         if (!m_adjacencyList.containsKey(v)) {
@@ -23,6 +34,10 @@ public class Graph {
         }
     }
 
+    /**
+     * Counts amount of edges in graph
+     * @return
+     */
     public int numAllEdges() {
         int edgeSum = 0;
 
@@ -33,6 +48,12 @@ public class Graph {
         return edgeSum;
     }
 
+    /**
+     * Adds edge between vertices to graph
+     * @param src
+     * @param dst
+     * @param weight
+     */
     public void addEdge (Vertex src, Vertex dst, float weight)
     {
         Edge edge = new Edge(src, dst, weight);
@@ -42,6 +63,12 @@ public class Graph {
         }
     }
 
+    /**
+     * Adds weighted edge to graph (currently unused)
+     * @param v0
+     * @param v1
+     * @param weight
+     */
     public void addUniEdge (Vertex v0, Vertex v1, float weight)
     {
         addEdge(v0, v1, weight);
@@ -50,7 +77,10 @@ public class Graph {
 
     public HashMap< Vertex, LinkedList<Edge>> m_adjacencyList;
 
-    // Recursive call
+    /**
+     * Recursive call search algorithm. Searches bottom layers first
+     * @param v
+     */
     public void dfs(Vertex v) {
         v.setVisited(true);
 
@@ -71,6 +101,10 @@ public class Graph {
         }
     }
 
+    /**
+     * Queue oriented search algorithm. Searches top layers first
+     * @param v
+     */
     // Uses a queue
     public void bfs(Vertex v) {
         Queue<Vertex> queue = new LinkedList<>();
