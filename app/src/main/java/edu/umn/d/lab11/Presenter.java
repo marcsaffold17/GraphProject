@@ -6,6 +6,11 @@ public class Presenter {
     private MainView view;
     private DrawingCanvasView canvasView;
 
+    /**
+     * Defines view and model data
+     * @param view
+     * @param canvasView
+     */
     public Presenter(MainView view, DrawingCanvasView canvasView) {
         this.graph = new Graph();
         this.view = view;
