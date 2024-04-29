@@ -38,12 +38,6 @@ public class DrawingCanvas extends View implements DrawingCanvasView{
         edgePaint.setColor(Color.BLUE);
         edgePaint.setStrokeWidth(5);
 
-        // Draws vertices
-        for (VertexVisual vertex : vertices) {
-            canvas.drawCircle(vertex.getX(), vertex.getY(), vertex.getRadius(), vertexPaint);
-            canvas.drawText(vertex.getVertexName(), vertex.getX() + vertex.getRadius() * 1.5f, vertex.getY(), vertexTextPaint);
-        }
-
         // Draws edges
         for (EdgeVisual edge : edges) {
             VertexVisual srcVertex = edge.getSource();
@@ -54,6 +48,12 @@ public class DrawingCanvas extends View implements DrawingCanvasView{
             float midY = (srcVertex.getY() + dstVertex.getY()) / 2;
 
             canvas.drawText(String.valueOf(edge.getWeight()), midX, midY, vertexTextPaint);
+        }
+
+        // Draws vertices
+        for (VertexVisual vertex : vertices) {
+            canvas.drawCircle(vertex.getX(), vertex.getY(), vertex.getRadius(), vertexPaint);
+            canvas.drawText(vertex.getVertexName(), vertex.getX() + vertex.getRadius() * 1.5f, vertex.getY(), vertexTextPaint);
         }
     }
 
@@ -87,7 +87,13 @@ public class DrawingCanvas extends View implements DrawingCanvasView{
         return super.onTouchEvent(event);
     }
 
-    // Check if a vertex is clicked
+
+    /**
+     * Check if a vertex is clicked
+     * @param touchX
+     * @param touchY
+     * @return
+     */
     @Override
     public VertexVisual getSelectedVertex(float touchX, float touchY) {
         for (VertexVisual vertex : vertices) {
@@ -100,26 +106,49 @@ public class DrawingCanvas extends View implements DrawingCanvasView{
         }
         return null;
     }
+
+    /**
+     * Adds visual vertex to android screen
+     * @param vertex
+     */
     @Override
     public void addVertex(VertexVisual vertex) {
         vertices.add(vertex);
         invalidate();
     }
+
+    /**
+     * Adds visual edge to android screen
+     * @param edge
+     */
     @Override
     public void addEdge(EdgeVisual edge) {
         edges.add(edge);
         invalidate();
     }
+
+    /**
+     * Removes edges from android screen
+     */
     @Override
     public void clearEdges() {
         edges.clear();
         invalidate();
     }
+
+    /**
+     * Removes vertices from android screen
+     */
     @Override
     public void clearVertices() {
         vertices.clear();
         invalidate();
     }
+
+    /**
+     * Changes weight when user moves visual vertex in app
+     * @param movedVertex
+     */
     @Override
     public void updateEdgeDistance(VertexVisual movedVertex) {
         for (EdgeVisual edge : edges) {
@@ -130,7 +159,12 @@ public class DrawingCanvas extends View implements DrawingCanvasView{
         }
     }
 
-    // Calculates distance between vertices
+    /**
+     * Calculates distance between vertices
+     * @param v1
+     * @param v2
+     * @return
+     */
     @Override
     public float edgeDistance(VertexVisual v1, VertexVisual v2) {
         float dx = v2.getX() - v1.getX();

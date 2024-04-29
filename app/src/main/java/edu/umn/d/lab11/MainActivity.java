@@ -198,7 +198,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         });
     }
 
-    // Finds the name of the most recently added vertex
+    /**
+     * Finds the name of the most recently added vertex
+     * @param name
+     * @return
+     */
     @Override
     public VertexVisual findVertexName(String name) {
         for (VertexVisual vertex : vertices) {
@@ -209,7 +213,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
         return null;
     }
 
-    // Calculates distance between vertices
+
+    /**
+     * Calculates distance between vertices
+     * @param v1
+     * @param v2
+     * @return
+     */
     @Override
     public float edgeDistance(VertexVisual v1, VertexVisual v2) {
         float dx = v2.getX() - v1.getX();
