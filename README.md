@@ -1,0 +1,1 @@
+Android application written in Java. Uses graph data structures and includes Depth First Search and Breadth First Search algorithms. Users can directly create graphs from the app, creating their own or having a graph randomly generated. Implements MVP architecture, JavaDoc, and JUnit.
